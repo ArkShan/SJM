@@ -1,6 +1,44 @@
+<?php 
+require 'function.php';
+require 'cek.php';
+
+// Function Login multi user berdasarakan Lvl
+if (isset($_POST['login'])){
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $role = $_POST['role'];
+  // Cocokan dengan database, cari data
+  $cekdatabase = mysqli_query($koneksi, "SELECT * FROM tb_register where email='$email' and password='$password'");
+  // Hitung jumlah data
+  $hitung = mysqli_num_rows($cekdatabase);
+  if ($hitung > 0) {
+      // Kalau data ditemukan
+      // $_SESSION['log']= 'TRUE';
+      $ambildatrole = mysqli_fetch_array($cekdatabase);
+      $role = $ambildatrole['role'];
+      if ($role == 'Owner') {
+          // Kalau dia owner
+          $_SESSION['log'] = 'Logged';
+          $_SESSION['role'] = 'Owner';
+          header('location: ownerhome.php'); //halaman utama
+      } else if ($role == 'Sales') {
+          // Kalau bukan owner
+          $_SESSION['log'] = 'Logged';
+          $_SESSION['role'] = 'Sales';
+          header('location: saleshome.php');
+      } else if ($role == 'Gudang') {
+          //Kalau bukan manager
+          $_SESSION['log'] = 'Logged';
+          $_SESSION['role'] = 'Gudang';
+          header('location: gudanghome.php');
+      } else {
+          echo 'Data tidak ada';
+      }
+  }
+};
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="utf-8">
@@ -9,7 +47,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Login</title>
+  <title>Sinar Jaya Motor - Login</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,12 +77,12 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user">
+                  <form method="POST">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -52,34 +90,19 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
-                    <hr>
-                    <a href="index.html" class="btn btn-google btn-user btn-block">
-                      <i class="fab fa-google fa-fw"></i> Login with Google
-                    </a>
-                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                      <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                    </a>
+                    <button class="btn btn-primary" name="login">Login</button>
                   </form>
                   <hr>
                   <div class="text-center">
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
   <!-- Bootstrap core JavaScript-->

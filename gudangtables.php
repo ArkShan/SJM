@@ -12,7 +12,7 @@ require 'cek.php';
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <title>Sinar Jaya Motor - Gudang_Tables</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,11 +35,11 @@ require 'cek.php';
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="gudanghome.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Sinar Jaya Motor</div>
       </a>
 
       <!-- Divider -->
@@ -47,7 +47,7 @@ require 'cek.php';
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="gudanghome.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -109,8 +109,8 @@ require 'cek.php';
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
+            <a class="collapse-item" href="login.php">Login</a>
+            <a class="collapse-item" href="register.php">Register</a>
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
@@ -129,7 +129,7 @@ require 'cek.php';
 
       <!-- Nav Item - Tables -->
       <li class="nav-item active">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="gudangtables.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
@@ -333,7 +333,40 @@ require 'cek.php';
 
         </nav>
         <!-- End of Topbar -->
-
+        <!-- Modal ...... -->
+        <!-- The  ....... Modal -->
+        <div class="modal fade" id="_1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Tambah Barang</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <!-- Content 1 -->
+                <form method="POST">
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="kode_b"      type="text"     placeholder="Kode Barang"   value="" required/>
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="nama_b"      type="text"     placeholder="Nama_Barang"   value="" required/>
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="tipe_mobil"  type="text"     placeholder="Tipe_Mobil"     value="" required/>
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="kategori"    type="text"     placeholder="Kategori"      value="" required/>
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="harga"       type="text"     placeholder="Harga"         value="" required/>
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="pcs_dus"     type="number"   placeholder="Pcs/Dus"       value="" required/>
+                      <input class="form-control py-4 mb-2" id="inputEmailAddress" name="harga_p"     type="text"     placeholder="Harga_Promo"   value="" required/>
+                      <!-- <input class="form-control py-4 mb-2" id="inputEmailAddress" name="keterangan"  type="text"     placeholder="Penerima"    required/> -->
+                      <button type="submit" class="btn btn-primary" name="addnewbarang" >Submit</button>
+                    </div>
+                  </div>
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -344,6 +377,7 @@ require 'cek.php';
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
+              <button class="btn btn-success" data-toggle="modal" data-target="#_1">Tambah</button>
               <h6 class="m-0 font-weight-bold text-primary"></h6>
             </div>
             <div class="card-body">
@@ -351,14 +385,15 @@ require 'cek.php';
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>ID_Barang</th>
-                      <th>kode barang</th>
-                      <th>Nama_Barang</th>
-                      <th>Tipe_Mobil</th>
+                      <th>ID Barang</th>
+                      <th>Kode barang</th>
+                      <th>Nama Barang</th>
+                      <th>Tipe Mobil</th>
                       <th>Kategori</th>
                       <th>Harga</th>
                       <th>Pcs/Dus</th>
-                      <th>Harga_Promo</th>
+                      <th>Harga Promo</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <!-- <tfoot>
@@ -377,43 +412,117 @@ require 'cek.php';
                   $ambilsemuadatastock = mysqli_query($koneksi,"SELECT * FROM tb_barang");
                   $i=1;
                   while($data=mysqli_fetch_array($ambilsemuadatastock)){
-                   $namabarang = $data['nama_b'];
-                   $Tipe_Mobil = $data['tipe_mobil'];
-                   $Kategori =$data['kategori'];
-                   $Harga= $data['harga'];
-                   $kodebarang = $data['kode_b'];
-                   $qty = $data['pcs/dus'];
-                   $promo = $data['harga_p'];
-                   ?>
-                   <td><?=$i++;?></td>
-                   <td><?=$kodebarang;?></td>
-                   <td><?= $namabarang;?></td>
-                   <td><?=$Tipe_Mobil;?></td>
-                   <td><?= $Kategori;?></td>
-                   <td><?= $Harga;?></td>
-                   <td><?= $qty;?></td>
-                   <td><?= $promo;?></td>
+                    $id_b       = $data['id_b'];
+                    $kodebarang = $data['kode_b'];
+                    $namabarang = $data['nama_b'];
+                    $Tipe_Mobil = $data['tipe_mobil'];
+                    $Kategori   = $data['kategori'];
+                    $Harga      = $data['harga'];
+                    $qtyd       = $data['pcs_dus'];
+                    $promo      = $data['harga_p'];
+                    ?>
+                    <td><?=$i++;?></td>
+                    <td><?=$kodebarang;?></td>
+                    <td><?= $namabarang;?></td>
+                    <td><?=$Tipe_Mobil;?></td>
+                    <td><?= $Kategori;?></td>
+                    <td>Rp <?= $Harga;?></td>
+                    <td><?= $qtyd;?></td>
+                    <td><?= $promo;?></td>
+                    <td>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$id_b;?>">Ubah</button>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$id_b;?>">Hapus</button>
+                      </td>
                   </tbody>
+                  <?php
+                  };
+                  ?>
                 </table>
               </div>
             </div>
           </div>
-          <?php
-           };
-           ?>
+        
         </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
 
+      <!-- Aksi CRUD -->
+      <!-- Modal stock Gudang -->
+      <!-- The  Edit Modal -->
+      <div class="modal fade" id="edit<?=$id_b;?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Barang</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <!-- Content 1 -->
+            <form method="post">
+              <div class="modal-body">
+                <div class="form-group">
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="kode_b"     type="text"   placeholder="Kode Barang" value="<?=$kodebarang;?>" required/>
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="nama_b"     type="text"   placeholder="Nama_Barang" value="<?=$namabarang;?>" required/>
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="tipe_mobil" type="text"   placeholder="Tipe_Mobil"  value="<?=$Tipe_Mobil;?>" required/>
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="kategori"   type="text"   placeholder="Kategori"    value="<?=$Kategori;?>" required/>
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="harga"      type="text"   placeholder="Harga"       value="<?=$Harga;?>" required/>
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="pcs_dus"    type="number" placeholder="Pcs/Dus"     value="<?=$qtyd;?>" required/>
+                  <input class="form-control py-4 mb-2" id="inputEmailAddress" name="harga_p"    type="text"   placeholder="Harga_Promo" value="<?=$promo;?>" required/>
+                  <input type="hidden" name="id_b" value="<?=$id_b;?>">
+                  <button type="submit" class="btn btn-primary" name="updatebarangmasuk" >Submit</button>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Modal stock Gudang -->
+      <!-- The  delete Modal -->
+      <div class="modal fade" id="delete<?=$id_b;?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Hapus Barang ?</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <!-- Content 1 -->
+            <form method="POST">
+              <div class="modal-body mb-2">
+                Apakah anda yakin ingin menghapus Barang Ini ?
+                <input type="hidden" name="idbarang" value="<?=$id_b;?>">
+                <input type="hidden" name="Pcs/Dus"  value="<?=$qtyd;?>">
+                <input type="hidden" name="id_b"     value="<?=$id_b;?>">
+                <br>
+                <br>
+                <button type="submit" class="btn btn-danger" name="hapusbarangmasuk" >Hapus</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+                  
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End aksi Crud -->
+
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
+        <!-- <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; Your Website 2019</span>
           </div>
-        </div>
+        </div> -->
       </footer>
       <!-- End of Footer -->
 
@@ -441,12 +550,12 @@ require 'cek.php';
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="login.php">Logout</a>
         </div>
       </div>
     </div>
   </div>
-
+ 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
